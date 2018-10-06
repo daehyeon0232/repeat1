@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>반복문_도끼</title>
+	<style>
+	*{padding: 0px; margin: 0px;}
+		body{background: green;}
+		#box{position: relative; top: 50px; left: 50px; width: 490px; height: 650px ; overflow: hidden;}
+		#windowframe{position: relative; width: 450px; height: 450px; border: 20px solid white; }
+		#Rwindow{position: relative; width: 450px; height: 450px; background: #0D0D11; overflow: hidden; filter: blur(6px);}
+		
+		#rain{position: absolute; background: white; width: 1px; height: 40px; left: 5px; animation: ani_rain 1s linear infinite; }
+		
+		@keyframes ani_rain{
+			from{margin-top: 0px;}
+			to{margin-top: 700px;}
+		}
+		#dok{position: absolute; top: 400px; left: 500px; width: 500px; transform: rotate(130deg); animation: ani_dok 0.48s infinite alternate; animation-play-state: paused;}
+		@keyframes ani_dok{
+			from{margin-top: -80px;}
+			to{margin-top: 40px;}
+		}
+		#watch{position: absolute; right: 100px; top: 50px; width: 300px; animation: ani_mov 0.48s  infinite alternate; animation-play-state: paused;}
+		#car{position: absolute; left: 850px; top: 400px; width: 550px; animation: ani_mov 0.48s  infinite alternate; animation-play-state: paused;}
+		#hat{position: absolute; left: 650px; top: 10px; width: 220px; animation: ani_mov 0.48s  infinite alternate; animation-play-state: paused;}
+		
+		@keyframes ani_mov{
+			from{margin-top: 0px;}
+			to{margin-top: 20px;}
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="windowframe">
+			<div id="Rwindow">
+				<div id="rain"></div>
+			</div>
+		</div>
+	</div>
+	
+	<img src="img/watch.png" id="watch">
+	<img src="img/car.png" id="car">
+	<img src="img/hat.png" id="hat">
+	<img src="img/axe.png" id="dok">
+	<audio id="song">
+  		<source src="audio/outrain.mp3" type="audio/mpeg"> 		
+	</audio>
+
+
+	<script type="text/javascript">
+		
+		var bi = document.getElementById("rain");
+		for(var i=0; i<50; i++){
+			
+			var newbi = bi.cloneNode(true);
+			newbi.style.animationDuration = Math.random() + 0.2 + "s";
+			newbi.style.top = randomB(-50, 50) + "px";
+			newbi.style.left = randomB(0, 500) + "px";
+			Rwindow.appendChild(newbi);
+			console.log(i);
+		}
+		function randomB(min,max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		var toggle = "off";
+		Rwindow.onclick = function(){
+			if(toggle == "off"){
+				Rwindow.style.filter = "blur(0px)";
+				Rwindow.style.overflow = "visible";
+				dok.style.left = "30px" ;
+				dok.style.top = "350px";
+				dok.style.animationPlayState = "running";
+				car.style.animationPlayState = "running";
+				hat.style.animationPlayState = "running";
+				watch.style.animationPlayState = "running";
+				song.play();
+				toggle = "on";
+			}else{
+				Rwindow.style.filter = "blur(6px)";
+				Rwindow.style.overflow = "hidden"
+				dok.style.left = "500px";
+				dok.style.top = "300px";
+				dok.style.animationPlayState = "paused";      
+				car.style.animationPlayState = "paused";
+				hat.style.animationPlayState = "paused";
+				watch.style.animationPlayState = "paused";
+
+				song.load();
+				toggle = "off";
+			}
+		}
+	</script>
+
+
+</body>
+</html>
